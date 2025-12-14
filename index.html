@@ -325,7 +325,7 @@
             homeView.style.display = 'grid';
             detailView.style.display = 'none';
             if (updateUrl) {
-                history.pushState(null, null, 'index.html');
+                history.pushState(null, null, window.location.pathname);
             }
         }
 
@@ -381,7 +381,10 @@
 
                 // Update URL dengan Judul Konten
                 const slug = article.title.replace(/[^a-zA-Z0-9\s]/g, '').trim().replace(/\s+/g, '_');
-                history.pushState(null, null, slug);
+                const newUrl = '?article=' + slug;
+                if (window.location.search !== newUrl) {
+                    history.pushState(null, null, newUrl);
+                }
             }
         }
 
@@ -405,8 +408,28 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             renderArticleCards();
-            showHome(false);
+            handleRouting();
         });
+
+        // Fungsi untuk menangani routing berdasarkan URL parameter
+        function handleRouting() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleSlug = urlParams.get('article');
+            
+            if (articleSlug) {
+                const article = articles.find(a => {
+                    const s = a.title.replace(/[^a-zA-Z0-9\s]/g, '').trim().replace(/\s+/g, '_');
+                    return s === articleSlug;
+                });
+                if (article) {
+                    showDetail(article.id);
+                    return;
+                }
+            }
+            showHome(false);
+        }
+
+        window.addEventListener('popstate', handleRouting);
     </script>
 
 </body>
