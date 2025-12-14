@@ -23,6 +23,7 @@
             padding: 20px 0;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
 
         /* Gaya Header Baru */
@@ -197,7 +198,7 @@
 </head>
 <body>
 
-    <header>
+    <header onclick="showHome()">
         <h1>Mirando | Game Developer</h1>
         <p>Building Immersive Experiences: Multiplayer Games, Virtual Reality (VR), and Augmented Reality (AR).</p>
     </header>
@@ -209,7 +210,7 @@
 
 
         <section id="detail-view">
-            <button class="back-button" onclick="showHome()">← Kembali ke Semua Artikel</button>
+            <button class="back-button" onclick="showHome()">← Back</button>
             <h2 id="detail-title">Judul Detail</h2>
             <img id="detail-image" src="" alt="Gambar Detail">
             
