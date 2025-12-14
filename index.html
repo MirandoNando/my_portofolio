@@ -321,9 +321,12 @@
         const detailContent2 = document.getElementById('detail-content-2');
         const detailLinkContainer = document.getElementById('detail-link-container');
 
-        function showHome() {
+        function showHome(updateUrl = true) {
             homeView.style.display = 'grid';
             detailView.style.display = 'none';
+            if (updateUrl) {
+                history.pushState(null, null, 'index.html');
+            }
         }
 
         function showDetail(articleId) {
@@ -375,6 +378,10 @@
                 homeView.style.display = 'none';
                 detailView.style.display = 'block';
                 window.scrollTo(0, 0); 
+
+                // Update URL dengan Judul Konten
+                const slug = article.title.replace(/[^a-zA-Z0-9\s]/g, '').trim().replace(/\s+/g, '_');
+                history.pushState(null, null, slug);
             }
         }
 
@@ -398,7 +405,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             renderArticleCards();
-            showHome();
+            showHome(false);
         });
     </script>
 
